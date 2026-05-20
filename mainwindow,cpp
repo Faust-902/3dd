@@ -1,0 +1,38 @@
+#include "mainwindow.h"
+#include <QLabel>
+#include <QString>
+#include <QPainter>
+
+class Circle {
+public:
+    double radius;
+    Circle(double r) {
+        radius = r;
+    }
+    double area() {
+        return 3.14159 * radius * radius;
+    }
+};
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+{
+    setFixedSize(400, 400);
+    Circle c(3);
+    double result = c.area();
+    QLabel *label = new QLabel(this);
+    label->setText("Circle area: " + QString::number(result));
+    label->setGeometry(50, 50, 200, 30);
+}
+
+MainWindow::~MainWindow()
+{
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(Qt::red);
+    painter.drawEllipse(150, 150, 100, 100);
+}
